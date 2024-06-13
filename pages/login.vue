@@ -39,8 +39,8 @@ const router = useRouter()
 const snackbar = useSnackbar();
 
 const form = ref({
-  email: 'gokhantkmk@gmail.com', // Varsayılan email
-  password: 'gokhan' // Varsayılan şifre
+  email: '', // Varsayılan email
+  password: '' // Varsayılan şifre
 })
 
 const { handleSubmit } = useForm({
