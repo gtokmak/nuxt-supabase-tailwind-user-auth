@@ -19,7 +19,6 @@
                 </div>
 
                 <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-800">Kayıt Ol</button>
-                <p v-if="error" class="mt-4 text-red-500">{{ error }}</p>
             </form>
             <p class="mt-4">
                 Zaten hesabınız var mı? <router-link to="/login" class="text-indigo-600 hover:underline">Giriş Yap!</router-link>

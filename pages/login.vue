@@ -16,7 +16,6 @@
 
                 <button type="submit"
                     class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700">Giriş Yap!</button>
-                    <p v-if="error" class="mt-4 text-red-500">{{ error }}</p>
             </form>
             <p class="mt-4">
                 Hesabın yok mu? <router-link to="/register" class="text-indigo-600 hover:underline">Kayıt ol!</router-link>
@@ -40,8 +39,8 @@ const router = useRouter()
 const snackbar = useSnackbar();
 
 const form = ref({
-  email: '', // Varsayılan email
-  password: '' // Varsayılan şifre
+  email: 'gokhantkmk@gmail.com', // Varsayılan email
+  password: 'gokhan' // Varsayılan şifre
 })
 
 const { handleSubmit } = useForm({
