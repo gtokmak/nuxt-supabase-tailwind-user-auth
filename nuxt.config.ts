@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/supabase", "@nuxtjs/tailwindcss", '@pinia/nuxt', '@vee-validate/nuxt', 'nuxt-snackbar', 'nuxt-icon', 'nuxt-highcharts'],
+  modules: ["@nuxtjs/supabase", "@nuxtjs/tailwindcss", '@pinia/nuxt', '@vee-validate/nuxt', 'nuxt-snackbar', 'nuxt-icon', 'nuxt-highcharts',],
 
   supabase: {
     // Options

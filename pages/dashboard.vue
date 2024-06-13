@@ -1,8 +1,10 @@
 <template>
   <div>
     <h2 class="text-2xl font-bold my-4">Gösterge Paneli</h2>
+    <highchart :options="chartOptions" />
+
     <div class="overflow-auto max-h-[500px]">
-      <table class="min-w-full border-collapse border border-green-600 my-5" v-if="tempAndHumdStore.loading">
+      <table v-if="tempAndHumdStore.loading" class="min-w-full border-collapse border border-green-600 my-5">
         <thead class="sticky top-0 bg-gray-500">
           <tr>
             <th class="border border-gray-300 px-4 py-2">Tarih</th>
@@ -44,10 +46,14 @@
 
 <script setup>
 
+const chartOptions = ref({});
+
+// Store
 const tempAndHumdStore = useTemperatureAndHumidity();
 
 onMounted(() => {
   tempAndHumdStore.subscribeToChanges();
+  console.log(tempAndHumdStore.temperatureAndHumidity?.map(item => item.temperature));
 });
 
 onUnmounted(() => {
@@ -58,6 +64,45 @@ const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
+const updateChartOptions = () => {
+  const sortedData = tempAndHumdStore.temperatureAndHumidity?.slice().slice(0, 30).reverse();
+
+  chartOptions.value = {
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Sıcaklık ve Nem Değişimleri'
+    },
+    xAxis: {
+      categories: sortedData?.map(item => formatDate(item.created_at))
+    },
+    yAxis: {
+      title: {
+        text: 'Değer'
+      }
+    },
+    series: [
+      {
+        name: 'Sıcaklık',
+        data: sortedData?.map(item => parseFloat(item.temperature))
+      },
+      {
+        name: 'Nem',
+        data: sortedData?.map(item => parseFloat(item.humidity))
+      }
+    ]
+  };
+};
+
+// Ensure chart options are updated whenever data changes
+watch(
+  () => tempAndHumdStore.temperatureAndHumidity,
+  () => updateChartOptions(),
+  { immediate: true }
+);
+
 </script>
 
 <style scoped>
